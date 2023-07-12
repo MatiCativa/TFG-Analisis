@@ -1,0 +1,17 @@
+.card-main {
+    text-align: center ;
+    align-items: center;
+    margin: auto;
+    display: flex;
+    margin-top: 20px ;
+    flex-direction: column ;
+}
+
+.text-input-login {
+    margin: -57px 0px 10px 0px !important;
+    width: 19rem;
+}
+
+.button-login {
+    width: 19rem;
+}

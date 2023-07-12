@@ -1,0 +1,59 @@
+# Virtual environment
+venv/
+env/
+
+# Editor/IDE files
+.vscode/
+.idea/
+*.pyc
+*.pyo
+*.pyd
+
+# Logs
+*.log
+
+# Database
+*.sqlite3
+
+# Static files
+staticfiles/
+
+# Media files
+media/
+
+# Compiled files
+*.pyc
+*.class
+
+# Dependency directories
+/bin/
+/build/
+/lib/
+/include/
+/lib64/
+
+# Environment variables
+.env
+
+# Ignore local settings
+/local_settings.py
+
+# Ignore pipenv lock file (if using Pipenv)
+Pipfile.lock
+
+# Ignore pytest cache
+.pytest_cache/
+
+# Ignore coverage reports
+htmlcov/
+
+# Ignore Django secret key file
+secret_key.txt
+
+# Ignore development specific files
+/dev/
+
+/modelML/colon.h5
+/patients/modelML/model_resnet50.h5
+../analisis
+../analisis.pub
