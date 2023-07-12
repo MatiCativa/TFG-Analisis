@@ -15,12 +15,15 @@ import os
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+from credentials import CLOUD_NAME, API_KEY, API_SECRET,DJANGO_KEY
+
+#Esto es un cambio
 
 # Configuración de Cloudinary
 cloudinary.config( 
-    cloud_name = "mati-cativa", 
-    api_key = "242143947694921", 
-    api_secret = "-uBuSWx49SFAu6au1i3d-ztaiOQ" 
+    cloud_name = CLOUD_NAME, 
+    api_key = API_KEY, 
+    api_secret = API_SECRET 
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -31,12 +34,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-gpe8khm03z1kv&d7eh^g^_o#34xy062qfivp$9!aumj)gdd9r&'
+SECRET_KEY = DJANGO_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 FRONTEND_URL = 'http://localhost:3000'
 
