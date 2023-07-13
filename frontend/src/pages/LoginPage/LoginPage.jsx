@@ -131,7 +131,7 @@ const LoginPage = ({dataFromLogin}) => {
                 </CardContent>
             </CardContent>
             <Typography variant="body2" color="text.secondary">
-                • Para obtener una cuenta o si tiene algún problema, envíe un correo electrónico a XXX@XXX.com. 
+                • Para obtener una cuenta o si tiene algún problema, envíe un correo electrónico a analisis.machine.learning@gmail.com. 
             </Typography>
             <Snackbar open={openAlert}>
                 <Alert severity="error" sx={{ width: '35rem' }}>

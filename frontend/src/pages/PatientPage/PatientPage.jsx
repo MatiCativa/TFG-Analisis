@@ -28,7 +28,6 @@ const Patient = ({user}) => {
                     Authorization: `Token ${user.token.token}`
                 },
             }); 
-            console.log(response);
             setPatientData(response.data)
         } catch (error) {
             console.log(error)
@@ -44,6 +43,7 @@ const Patient = ({user}) => {
             });
 
             if(response.status === 204) {
+                setAlertSeverity("success")
                 setOpenAlert(true);
                 setAlertTitle("Paciente Eliminado")
                 setTimeout(() => {
@@ -57,7 +57,6 @@ const Patient = ({user}) => {
                 setTimeout(() => {
                     setOpenAlert(false)
                 }, 3000);
-
             }
 
         } catch (error) {
@@ -78,15 +77,51 @@ const Patient = ({user}) => {
     };
 
     const handlePrintAnalysis = async () => {
-    
         try {
-          const pdfBytes = await generatePDF(patientData);
-          const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-          saveAs(blob, `analisis-${patientData.last_name}.pdf`);
+            const pdfBytes = await generatePDF(patientData);
+            const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+            saveAs(blob, `analisis-${patientData.last_name}.pdf`);
         } catch (error) {
-          console.error('Error al generar el PDF:', error);
+            console.error('Error al generar el PDF:', error);
         }
     };
+
+    const sendEmail = async () => {
+        try {
+            const pdfBinary = await generatePDF(patientData);
+            const blob = new Blob([pdfBinary], { type: 'application/pdf' });
+
+            const formData = new FormData();
+            formData.append('pdf', blob);
+            formData.append('recipientEmail', patientData.email); // Adjunta la dirección de correo del destinatario
+        
+            const response = await axios.post(`http://localhost:8000/patient/send_email/`, formData); // Realiza la solicitud HTTP al backend
+            
+            if(response.status === 200) {
+                setAlertSeverity("success")
+                setOpenAlert(true);
+                setAlertTitle("Email enviado correctamente")
+                setTimeout(() => {
+                    setOpenAlert(false)
+                }, 3000);
+
+            } else {
+                setAlertSeverity("error")
+                setAlertTitle('Error al Eliminar')
+                setTimeout(() => {
+                    setOpenAlert(false)
+                }, 3000);
+            }
+            
+        } catch (error) {
+            setAlertSeverity("error")
+            setAlertTitle(error)
+            setTimeout(() => {
+                setOpenAlert(false)
+            }, 3000);
+        }
+      };
+      
 
     return (
         <Card 
@@ -158,6 +193,7 @@ const Patient = ({user}) => {
                         color="primary"
                         size="small"
                         sx={{ marginRight: '5px' }}
+                        onClick={sendEmail}
                     >
                         Enviar por email
                     </Button>

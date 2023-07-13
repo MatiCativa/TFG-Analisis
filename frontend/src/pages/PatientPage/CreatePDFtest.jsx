@@ -51,7 +51,7 @@ const generatePDF = async (patientData) => {
     year: 'numeric',
   });
   page.drawText(currentDate, {
-    x: width - 150,
+    x: width - 170,
     y: height - 80,
     size: fontSize,
     font,
@@ -78,12 +78,12 @@ const generatePDF = async (patientData) => {
   // Patient Info Content
   const patientInfoContent = [
     ` • Nombre: ${patientData.name}`,
-    ` • Apellido: ${patientData.lastName}`,
+    ` • Apellido: ${patientData.last_name}`,
     ` • Género: ${patientData.gender}`,
     ` • Fecha de nacimiento: ${formatBirthDate(patientData.birth_date)}`,
-    ` • Edad: ${formatBirthDate(patientData.age)} años`,
-    ` • DNI: ${formatBirthDate(patientData.DNI)}`,
-    ` • Obra Social: ${formatBirthDate(patientData.social_security)}`,
+    ` • Edad: ${patientData.age} años`,
+    ` • DNI: ${patientData.dni}`,
+    ` • Obra Social: ${patientData.social_security}`,
   ];
 
   const infoListX = 50;
