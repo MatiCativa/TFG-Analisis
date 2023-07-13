@@ -28,6 +28,9 @@ from rest_framework.permissions import IsAuthenticated
 #Machine Learning
 from patients.modelML.report import generate_medical_report
 
+#Send email
+from django.core.mail import EmailMessage
+from django.http import HttpResponse
 
 #Patient view.
 class PatientView(viewsets.ModelViewSet):
@@ -43,12 +46,10 @@ class PatientView(viewsets.ModelViewSet):
             instance.image = upload_image(self.request.data['image'], folder_name)
             instance.save()
 
-        image_url = instance.image  # Obtener la URL de la imagen de Cloudinary
-        report = generate_medical_report(image_url)  # Pasar la URL de la imagen a la función
+        image_url = instance.image 
+        report = generate_medical_report(image_url)
         instance.report = report
         instance.save()
-        
-        
 
 class LoginView(APIView):
     def post(self, request):
@@ -63,3 +64,25 @@ class LoginView(APIView):
         token, _ = Token.objects.get_or_create(user=user)
 
         return Response({'token': token.key})
+
+class CorreoView(APIView):
+    def post(self, request):
+        if request.method == 'POST':
+            pdf = request.FILES['pdf']
+            recipient_email = request.POST.get('recipientEmail')
+
+            email = EmailMessage(
+                subject='Adjunto: Informe médico',
+                body='Adjunto encontrarás el informe médico.',
+                from_email='analisis.machine.learning@gmail.com',
+                to=[recipient_email],
+            )
+
+            email.attach('informe_medico.pdf', pdf.read(), 'application/pdf')
+
+            email.send()
+
+            return HttpResponse(status=200)
+        else:
+            return HttpResponse(status=405)
+

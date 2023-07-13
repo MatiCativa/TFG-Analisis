@@ -3,6 +3,7 @@ from rest_framework import routers
 from rest_framework.documentation import include_docs_urls
 from .views import PatientView
 from .views import LoginView
+from .views import CorreoView
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -15,6 +16,7 @@ router.register(r'patients', PatientView, 'patients')
 urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('api/v1/', include(router.urls)),
+    path('send_email/', CorreoView.as_view(), name='send_email'),
     path('docs/', include_docs_urls(title='Patients API'))
 ]
 

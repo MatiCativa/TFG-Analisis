@@ -15,10 +15,12 @@ import os
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
-from credentials import CLOUD_NAME, API_KEY, API_SECRET,DJANGO_KEY
 
-#Esto es un cambio
-
+CLOUD_NAME = os.environ.get('CLOUD_NAME')
+API_KEY = os.environ.get('API_KEY')
+API_SECRET = os.environ.get('API_SECRET')
+DJANGO_KEY = os.environ.get('DJANGO_KEY_TFG')
+EMAIL_PASSWORD = os.environ.get('EMAIL_PASS')
 # Configuración de Cloudinary
 cloudinary.config( 
     cloud_name = CLOUD_NAME, 
@@ -39,7 +41,7 @@ SECRET_KEY = DJANGO_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 FRONTEND_URL = 'http://localhost:3000'
 
@@ -71,6 +73,16 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'djangocrud.urls'
+
+#EMAIL CONF
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.elasticemail.com'
+EMAIL_PORT = 2525  # Puerto para Elastic Email
+EMAIL_HOST_USER = 'analisis.machine.learning@gmail.com'
+EMAIL_HOST_PASSWORD = EMAIL_PASSWORD
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'analisis.machine.learning@gmail.com'  # Dirección de correo electrónico predeterminada
+
 
 TEMPLATES = [
     {
